@@ -1,5 +1,6 @@
-let querying = false;
+// let querying = false;
 function getQueryResult() {
+    let querying = false;
     if (querying) return;
     querying = true;
     let start_query = new Date();
