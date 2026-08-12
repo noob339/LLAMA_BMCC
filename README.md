@@ -1,272 +1,184 @@
-# LLAMA_BMCC
+# LadyBug
 
-A webservice front end to Meta's ollama tool to get large language models running on your machine
-The service provides a means to query a language model, change the starting context, and parameters.
-For more information on ollama check out their github repo, and documentation.
+LadyBug is a self-hosted AI interface that connects a React frontend to a local Ollama model through a lightweight C++ server, with future support planned for Raspberry Pi hosting.
 
-repo:
-https://github.com/ollama/ollama/tree/main
+> [!IMPORTANT]
+> LadyBug is an early-stage open-source project that is still being prepared for broader use and contribution. For now, email [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com) with questions about contributing, bug reports, pull requests, or feature requests.
 
-docs:
-https://github.com/ollama/ollama/blob/main/docs/modelfile.md
+## About
 
-## `/query` Endpoint
+LadyBug explores a simple, decoupled approach to running a locally hosted AI assistant:
 
-**Method:** GET  
-**Description:** Processes a query by running a given prompt through the model, and returns the model's output.  
-**URL Parameters:**
-- `prompt` (string): The input prompt to be processed by the model.
+- A React interface accepts prompts and displays model responses.
+- A lightweight C++ server handles requests between the browser and the model.
+- Ollama runs the language model locally.
 
-**Success Response:**
-- **Code:** 200 OK 
-- **Content:** 
-```javascript
-  {
-    "data": "Processed model output",
-    "error": "",
-    "success": true
-  }
-  ```
+The long-term goal is to develop LadyBug into a modular, self-hosted AI platform that can run on personal hardware such as a Raspberry Pi-based home server. The project currently focuses on establishing a small, understandable MVP before introducing persistence, model management, plugins, or cloud hosting.
 
-**Error Response:**
-- **Code:** 200 OK 
-- **Content:** 
-```javascript
-  {
-    "data": "",
-    "error": "Exception, must supply parameter 'prompt'.",
-    "success": false
-  }
-  ```
+The repository is currently named `LLAMA_BMCC`, but the project and interface are transitioning to the name **LadyBug**.
 
-**Example Request:**
-```GET /query?prompt=Hello%20World```
+## Project Status
 
-**Example Interaction:**
-- **Request:** GET /query?prompt=Hello%20what%20are%20you
-- **Response:**
-```javascript
-  {
-    "data": "I am a virtual assistant designed to help with your queries.",
-    "error": "",
-    "success": true
-  }
-  ```
+LadyBug is currently a working demo under active development. The present MVP is intentionally narrow: submit a prompt through the web interface, send it through the C++ server to a local Ollama model, and display the model's response.
 
-## `/set_context` Endpoint
+Documentation, contribution processes, testing, and project organization are still in development. APIs and internal structure may change while the project is in this early stage.
 
-**Method:** GET  
-**Description:** Updates the model's context and saves the new configuration to a file.  
-**URL Parameters:**
-- `ctx` (string): The new context string for the model.
+## Current Features
 
-**Success Response:**
-- **Code:** 200 OK 
-- **Content:** 
-```javascript
-  {
-    "error": "",
-    "success": true
-  }
-  ```
+- Locally hosted language-model inference through Ollama
+- React-based prompt and response interface
+- Lightweight C++ middleware built with `cpp-httplib`
+- Configurable Ollama model and generation parameters in the config files for now (but will be available directly through the UI Frontend)
+- Production build served directly by the C++ server
 
-**Error Response:**
-- **Code:** 200 OK 
-- **Content:** 
-```javascript
-  {
-    "error": "must have param ctx for new model context.",
-    "success": false
-  }
-  ```
+## How It Works
 
-**Example Request:**
-`GET /set_context?ctx=new%20context`
-
-## `/set_parameter` Endpoint
-
-**Method:** GET  
-**Description:** Updates a specific model parameter and validates the new value based on predefined parameter types. Updates the model configuration and reloads the model as necessary.  
-**URL Parameters:**
-- `key` (string): The name of the parameter to update.
-- `value` (string): The new value for the parameter.
-
-**Success Response:**
-- **Code:** 200 OK 
-- **Content:** 
-```javascript
-  {
-    "error": "",
-    "success": true
-  }
-  ```
-
-**Error Responses:**
-1. **Missing Parameter Key or Value:**
-   - **Code:** 200 OK 
-   - **Content:** 
-   ```javascript
-     {
-       "error": "must include parameters 'key' for parameter name, and 'value' for value.",
-       "success": false
-     }
-     ```
-2. **Invalid Key:**
-   - **Code:** 200 OK 
-   - **Content:** 
-   ```javascript
-     {
-       "error": "Error, invalid key: '[key]'",
-       "success": false
-     }
-     ```
-3. **Invalid Value for the Specified Key:**
-   - **Code:** 200 OK 
-   - **Content:** 
-   ```javascript
-     {
-       "error": "Error, invalid value: '[value]' for parameter: '[key]' of type: [type]",
-       "success": false
-     }
-     ```
-
-**Example Request:**
-GET /set_parameter?key=exampleKey&value=exampleValue
-
-**Example Parameter Update:**
-- **Good Input:**
-  - **Request:** GET /set_parameter?key=num_ctx&value=10
-  - **Response:**
-  ```javascript
-    {
-      "error": "",
-      "success": true
-    }
-    ```
-- **Bad Input:**
-  - **Request:** GET /set_parameter?key=num_ctx&value=ten
-  - **Response:**
-  ```javascript
-    {
-      "error": "Error, invalid value: 'ten' for parameter: 'num_ctx' of type: Integer",
-      "success": false
-    }
-    ```
-
-### Endpoint Documentation: `/set_base_model`
-
-This endpoint is responsible for setting the base model to be used by the system. It accepts a single query parameter, `model`, which specifies the name of the base model to be set. The endpoint then loads the corresponding model configuration, updates the system's configuration accordingly, and returns information about the selected base model.
-
-#### Method: GET
-
-#### URL Parameters:
-- `model` (string): The name of the base model to be set.
-
-#### Success Response:
-- **Code:** 200 OK
-- **Content:**
-  ```json
-  {
-    "info": "Model: phi, Parameters: 2.7B, Size: 1.7GB",
-    "error": "",
-    "success": true
-  }
-  ```
-
-#### Error Responses:
-1. **Missing Parameter Model:**
-   - **Code:** 200 OK
-   - **Content:**
-     ```json
-     {
-       "error": "must include parameter model",
-       "success": false
-     }
-     ```
-   - **Details:** This error occurs when the `model` parameter is not provided in the request. The parameter is mandatory for setting the base model.
-
-2. **Invalid Model Name:**
-   - **Code:** 200 OK
-   - **Content:**
-     ```json
-     {
-       "error": "Error, invalid model name: '[model_name]'",
-       "success": false
-     }
-     ```
-   - **Details:** This error indicates that the provided `model` parameter does not match any valid base model names. It's essential to specify a valid model name to set the base model correctly.
-
-#### Examples:
-- **Valid Input:**
-  - **Request:**
-    ```
-    GET /set_base_model?model=phi
-    ```
-  - **Expected Output:**
-    ```json
-    {
-      "info": "Model: phi, Parameters: 2.7B, Size: 1.7GB",
-      "error": "",
-      "success": true
-    }
-    ```
-
-- **Invalid Input 1 (Missing Model Parameter):**
-  - **Request:**
-    ```
-    GET /set_base_model
-    ```
-  - **Expected Output:**
-    ```json
-    {
-      "error": "must include parameter model",
-      "success": false
-    }
-    ```
-
-- **Invalid Input 2 (Invalid Model Name):**
-  - **Request:**
-    ```
-    GET /set_base_model?model=invalid_model
-    ```
-  - **Expected Output:**
-    ```json
-    {
-      "error": "Error, invalid model name: 'invalid_model'",
-      "success": false
-    }
-    ```
-
-## `/base_model_options` Endpoint
-
-**Endpoint Description:**
-Retrieves a list of available base model options along with their parameters and sizes.
-
-**Example Output (Partial):**
-```json
-[
-  {"model_name":"codellama", "params":"7B", "size":"3.8GB"},
-  {"model_name":"dolphin-phi", "params":"2.7B", "size":"1.6GB"},
-  {"model_name":"gemma:2b", "params":"2B", "size":"4.8GB"},
-  ...
-]
+```mermaid
+flowchart LR
+    A[Browser] --> B[React + Vite]
+    B -->|HTTP request| C[C++ httplib server]
+    C -->|Prompt| D[Ollama]
+    D -->|Generated text| C
+    C -->|HTTP response| B
 ```
 
-## `/model_parameter_options` Endpoint
+A more detailed architecture and codebase map are coming soon.
 
-**Endpoint Description:**
-Retrieves a list of available model parameter options along with their types and descriptions.
+## Getting Started
 
-**Example Output (Partial):**
-```json
-[
-  {"param_name":"mirostat", "type":"Integer", "desc":"Enable Mirostat sampling for controlling perplexity."},
-  {"param_name":"mirostat_eta", "type":"Float", "desc":"Influences how quickly the algorithm responds to feedback from the generated text."},
-  {"param_name":"mirostat_tau", "type":"Float", "desc":"Controls the balance between coherence and diversity of the output."},
-  ...
-]
+LadyBug currently targets macOS and Linux. Windows instructions are planned but are not yet documented.
+
+### Prerequisites
+
+Install the following before continuing:
+- [Node.js and npm](https://nodejs.org/)
+- A C++ compiler with C++17 support
+- `make`
+- [Ollama](https://ollama.com/)
+
+Make sure Ollama is installed and running before starting LadyBug.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/noob339/LLAMA_BMCC.git
+cd LLAMA_BMCC
 ```
 
+### 2. Download the model
 
-## What's next?
-Check out the INSTALL_README.md to install the necessary software to run this project on windows, and feel free to refer back to this at any time for how to interact with this service when it is running.
+The current configuration uses Qwen 3 4B:
+
+```bash
+ollama pull qwen3:4b
+```
+
+Confirm that the `FROM` line in `test.conf` matches the downloaded model:
+
+```text
+FROM qwen3:4b
+```
+
+### 3. Install and build the frontend
+
+```bash
+cd client
+npm install
+npm run build
+```
+
+Vite places the production frontend in `client/dist`. The C++ server serves this directory when the application starts.
+
+### 4. Build and run the server
+
+From the `server` directory:
+
+```bash
+cd ../server
+make
+./main
+```
+
+The server will create the configured Ollama model, warm it up, and listen on port `8080`.
+
+### 5. Open LadyBug
+
+Visit:
+
+```text
+http://localhost:8080
+```
+The port can be changed in the main.cpp files
+
+Enter a prompt and submit it. The browser sends the request to the C++ server, which runs the local model and returns its response.
+
+## Frontend Development
+
+To use Vite's development server and hot reloading, keep the C++ server running and start Vite from another terminal:
+
+```bash
+cd client
+npm run dev
+```
+
+Open the local URL printed by Vite, usually `http://localhost:5173`. During development, Vite proxies API requests such as `/query` to the C++ server at `http://localhost:8080`.
+
+Changes to frontend source files must be rebuilt with `npm run build` before they appear in the version served at `http://localhost:8080`.
+
+## Technology
+
+| Area | Technology |
+| --- | --- |
+| Frontend | React, Vite |
+| Language | JavaScript |
+| Styling | CSS Modules |
+| Server | C++ cpp-httplib|
+| Model runtime | Ollama |
+
+PostgreSQL or another database may be added later for threads, history, projects, and other persistent data.
+
+## Roadmap
+
+Planned areas of development include:
+
+- Persistent conversations and chat history
+- Establish an issue and pull-request workflow
+- Conversation branching and tree-based navigation
+- Projects and nested folders for organizing conversations 
+- Model selection and parameter controls
+- A database schema and persistence layer
+- A consistent `/api` namespace for server endpoints
+- Automated tests and GitHub Actions
+- Raspberry Pi and home-server deployment
+- A command-line interface
+- Modular features and optional third-party integrations
+- Contributor roles and a path toward project membership
+- A hosted project website with a clearly defined privacy and data-retention policy
+- Document the codebase structure and API routes
+
+These ideas describe the direction of the project and should not be treated as currently available features.
+
+## Immediate TODOs
+
+- [ ] Add project badges
+- [ ] Verify setup instructions on a clean macOS or Linux environment
+- [ ] Move server endpoints under an `/api` path
+
+## Contributing
+
+Contributions will be welcomed as LadyBug develops. A light contribution guide is currently up. A full contribution guide is currently being written and will cover local development setup, bug reports, feature requests, pull requests, AI-assisted contributions, and future project membership.
+
+Until that guide and the repository's issue workflow are ready, email [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com) with any questions, issues and concerns. 
+
+## Credits
+
+- **Euripides Soto** — Creator and maintainer
+- **Open Source Software Development at Columbia University** — Course environment in which the project began
+
+## License
+
+LadyBug is open-source software distributed under the GNU General Public License. See the repository's `LICENSE` file for the exact version and terms.
+
+## Contact
+
+Questions, ideas, and early contribution inquiries can be sent to [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com).

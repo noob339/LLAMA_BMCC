@@ -1,122 +1,121 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useRef, useState } from "react";
+import ThreadBox from "./components/ThreadBox";
+import PromptBox from "./components/PromptBox";
+import styles from "./App.module.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+    const [prompt, setPrompt] = useState("");
+    const [output, setOutput] = useState("");
+    const [querying, setQuerying] = useState(false);
+    const [elapsed, setElapsed] = useState(null);
+    const abortRef = useRef(null);
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    const handleSubmit = () => {
+        if (querying || !prompt.trim()) return;
+
+        setQuerying(true);
+        setOutput("");
+        setElapsed(null);
+
+        const start = Date.now();
+        const controller = new AbortController();
+        abortRef.current = controller;
+
+        fetch(`/query?prompt=${encodeURIComponent(prompt)}`, {
+            signal: controller.signal,
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Server returned ${res.status}`);
+                }
+
+                return res.text();
+            })
+            .then((modelOutput) => {
+                setElapsed(((Date.now() - start) / 1000).toFixed(2));
+                setOutput(modelOutput);
+            })
+            .catch((err) => {
+                if (err.name !== "AbortError") {
+                    console.error("Error:", err);
+                    setOutput(
+                        "Could not reach the model. Check that the server is running and try again.",
+                    );
+                }
+            })
+            .finally(() => {
+                setQuerying(false);
+                abortRef.current = null;
+            });
+    };
+
+    const handleHalt = () => {
+        abortRef.current?.abort();
+        setQuerying(false);
+    };
+
+    return (
+        <div className={styles.app}>
+            <main className={styles.main}>
+                <header className={styles.brand}>
+                    <svg
+                        viewBox='0 0 32 32'
+                        className={styles.spotIcon}
+                        aria-hidden='true'
+                    >
+                        <circle cx='16' cy='16' r='13' fill='var(--lb-text)' />
+                        <line
+                            x1='16'
+                            y1='4'
+                            x2='16'
+                            y2='28'
+                            stroke='var(--lb-surface)'
+                            strokeWidth='1.5'
+                        />
+                        <circle
+                            cx='11'
+                            cy='12'
+                            r='2.1'
+                            fill='var(--lb-surface)'
+                        />
+                        <circle
+                            cx='21'
+                            cy='12'
+                            r='2.1'
+                            fill='var(--lb-surface)'
+                        />
+                        <circle
+                            cx='11'
+                            cy='21'
+                            r='2.1'
+                            fill='var(--lb-surface)'
+                        />
+                        <circle
+                            cx='21'
+                            cy='21'
+                            r='2.1'
+                            fill='var(--lb-surface)'
+                        />
+                    </svg>
+                    <h1 className={styles.wordmark}>
+                        Lady<span className={styles.wordmarkAccent}>Bug</span>
+                    </h1>
+                </header>
+
+                <ThreadBox
+                    output={output}
+                    querying={querying}
+                    elapsed={elapsed}
+                />
+
+                <PromptBox
+                    prompt={prompt}
+                    setPrompt={setPrompt}
+                    onSubmit={handleSubmit}
+                    onHalt={handleHalt}
+                    querying={querying}
+                />
+            </main>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    );
 }
-
-export default App

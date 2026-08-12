@@ -199,11 +199,25 @@ int main(int argc, char** argv)
 
         std::string prompt = req.get_param_value("prompt");
         std::cout<<prompt<<"\n";
+
+
+
         std::string model_output = model.run(prompt);
         trim_end(model_output);
-        escape_json(model_output);
-        response += "{\"data\":\"" + model_output + "\", \"error\":\"\", \"sucess\":true}\n";
-        res.set_content(response, "text/json");
+
+        // escape_json(model_output);
+
+        // response += "{\"data\":\"" + model_output + "\", \"error\":\"\", \"sucess\":true}\n";
+        // res.set_content(response, "text/json");
+        
+        // response =   "{\"data\":\"" + model_output + "\",\"error\":\"\",\"success\":true}";
+        // res.set_content(response, "application/json")
+
+        res.set_content(
+            model_output,
+            "text/plain; charset=UTF-8"
+        );
+
         std::cout<<"responding to prompt:\n"<<prompt<<"\nwith output:\n"<<model_output<<"\n";
     });
 
