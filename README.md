@@ -160,19 +160,21 @@ These ideas describe the direction of the project and should not be treated as c
 
 ## Immediate TODOs
 
+- [ ] Modify the response and parse out the intermediary thinking output
+
 - [ ] Add project badges
 - [ ] Verify setup instructions on a clean macOS or Linux environment
 - [ ] Move server endpoints under an `/api` path
 
 ## Contributing
 
-Contributions will be welcomed as LadyBug develops. A light contribution guide is currently up. A full contribution guide is currently being written and will cover local development setup, bug reports, feature requests, pull requests, AI-assisted contributions, and future project membership.
+Contributions will be welcomed as LadyBug develops. A nascent [contribution guide](CONTRIBUTING.md) is currently up at.
 
 Until that guide and the repository's issue workflow are ready, email [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com) with any questions, issues and concerns. 
 
 ## Credits
 
-- **Euripides Soto** — Creator and maintainer
+- **Noob339** — Creator and maintainer
 - **Open Source Software Development at Columbia University** — Course environment in which the project began
 
 ## License
