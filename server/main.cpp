@@ -154,7 +154,7 @@ struct Model {
 
     std::string run(std::string prompt) const
     {
-        std::string command = "ollama run test \"";
+        std::string command = "ollama run test --hidethinking --nowordwrap \"";
         command += prompt;
         command += "\" > model_output.txt";
         std::system(command.c_str());

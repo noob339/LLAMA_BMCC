@@ -11,3 +11,9 @@ main.o: main.cpp httplib.h CrossPlatform.hpp
 
 run: main
 	./main
+
+.PHONY: clean
+clean:
+	rm -f *.o *~ a.out core main
+
+

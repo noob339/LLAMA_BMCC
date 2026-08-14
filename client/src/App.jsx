@@ -2,26 +2,36 @@ import { useRef, useState } from "react";
 import ThreadBox from "./components/ThreadBox";
 import PromptBox from "./components/PromptBox";
 import styles from "./App.module.css";
+import HistorySideBar from "./components/HistorySideBar";
 
 export default function App() {
     const [prompt, setPrompt] = useState("");
-    const [output, setOutput] = useState("");
+    const [messages, setMessages] = useState([]);
     const [querying, setQuerying] = useState(false);
-    const [elapsed, setElapsed] = useState(null);
     const abortRef = useRef(null);
 
     const handleSubmit = () => {
-        if (querying || !prompt.trim()) return;
+        const submittedPrompt = prompt.trim();
 
+        if (querying || !submittedPrompt) return;
+
+        setPrompt("");
         setQuerying(true);
-        setOutput("");
-        setElapsed(null);
+
+        setMessages((currentMessages) => [
+            ...currentMessages,
+            {
+                id: crypto.randomUUID(),
+                role: "user",
+                content: submittedPrompt,
+            },
+        ]);
 
         const start = Date.now();
         const controller = new AbortController();
         abortRef.current = controller;
 
-        fetch(`/query?prompt=${encodeURIComponent(prompt)}`, {
+        fetch(`/query?prompt=${encodeURIComponent(submittedPrompt)}`, {
             signal: controller.signal,
         })
             .then((res) => {
@@ -32,15 +42,29 @@ export default function App() {
                 return res.text();
             })
             .then((modelOutput) => {
-                setElapsed(((Date.now() - start) / 1000).toFixed(2));
-                setOutput(modelOutput);
+                const elapsed = ((Date.now() - start) / 1000).toFixed(2);
+                setMessages((currentMessages) => [
+                    ...currentMessages,
+                    {
+                        id: crypto.randomUUID(),
+                        role: "assistant",
+                        content: modelOutput,
+                        elapsed,
+                    },
+                ]);
             })
             .catch((err) => {
                 if (err.name !== "AbortError") {
                     console.error("Error:", err);
-                    setOutput(
-                        "Could not reach the model. Check that the server is running and try again.",
-                    );
+                    setMessages((currentMessages) => [
+                        ...currentMessages,
+                        {
+                            id: crypto.randomUUID(),
+                            role: "assistant",
+                            content:
+                                "Could not reach the model. Check that the server is running and try again.",
+                        },
+                    ]);
                 }
             })
             .finally(() => {
@@ -51,11 +75,11 @@ export default function App() {
 
     const handleHalt = () => {
         abortRef.current?.abort();
-        setQuerying(false);
     };
 
     return (
         <div className={styles.app}>
+            <HistorySideBar />
             <main className={styles.main}>
                 <header className={styles.brand}>
                     <svg
@@ -102,11 +126,7 @@ export default function App() {
                     </h1>
                 </header>
 
-                <ThreadBox
-                    output={output}
-                    querying={querying}
-                    elapsed={elapsed}
-                />
+                <ThreadBox messages={messages} querying={querying} />
 
                 <PromptBox
                     prompt={prompt}

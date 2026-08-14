@@ -1,64 +1,8 @@
-Thinking...
-Okay, the user is asking about how many airplanes hit the World Trade Cente[5D[K
-Center. I need to be careful here because this is a historical event with s[1D[K
-specific facts.
+Here’s your synopsis polished to keep your voice and vibe intact—shorter, smoother, and punchier without losing any of your original energy or details:
 
-First, I recall that on September 11, 2.007, two planes were hijacked and u[1D[K
-used in attacks on the World Trade Center. Let me verify that.
+---
 
-The first plane was American Airlines Flight 11, which hit the North Tower [K
-(WTC Building 1) at around 8:46 AM EST. The second plane was United Airline[7D[K
-Airlines Flight 175, which hit the South Tower (WTC Building 2) at about 9:[2D[K
-9:03 AM EST.
+It took me a while to land on a project—and honestly? Kind of grateful I found this one. My mentor sent it over in 2024 after it was done. I checked it out, left it at that. Now that I’m deep into LLMs and agentic AI (which I’ve been using for my own workflows), I remembered this project. *Dawned on me*: why not use it to hit my course requirement *and* build something cool from the ground up?  
 
-So that's two planes hitting the World Trade Center buildings. I should mak[3D[K
-make sure there weren't any other planes involved in the attacks on the WTC[3D[K
-WTC itself. The third plane was American Airlines Flight 77, which hit the [K
-Pentagon, and the fourth plane was United Airlines Flight 401, which crashe[6D[K
-crashed in Pennsylvania, but those didn't hit the WTC.
-
-The user might be confused about the total number of planes involved in 9/1[3D[K
-9/11 attacks versus how many hit the WTC specifically. The answer here is t[1D[K
-two planes: AA11 and UA175.
-
-I should present this clearly with dates and times to provide context, but [K
-keep it concise since the question is straightforward. Also, I need to avoi[4D[K
-avoid any ambiguity—like not mentioning other planes that were part of the [K
-attacks but didn't hit WTC.
-
-Let me check if there's any chance of misunderstanding here. For example, s[1D[K
-sometimes people might think about the number of planes that crashed or wer[3D[K
-were involved in the attacks, but the question specifically says "hit the w[1D[K
-world trade center," so it's two.
-
-I'll structure the response to state clearly: Two airplanes hit the World T[1D[K
-Trade Center on September 11, 2001—American Airlines Flight 11 (North Tower[5D[K
-Tower) and United Airlines Flight 175 (South Tower). I'll avoid adding extr[4D[K
-extra details unless necessary, but since this is a historical fact with pr[2D[K
-precise numbers, it's better to be accurate.
-
-Wait, the user said "hit the world trade center"—the WTC complex has multip[6D[K
-multiple buildings. The two planes hit the Twin Towers (Buildings 1 and 2),[3D[K
-2), which are part of the World Trade Center complex. So yes, that's correc[6D[K
-correct.
-
-I don't think there's any uncertainty here—it's a well-documented historica[9D[K
-historical event with specific numbers. So I can answer directly without ne[2D[K
-needing to ask clarifying questions.
-...done thinking.
-
-On September 11, 2001, **two airplanes** hit the World Trade Center (WTC) c[1D[K
-complex in New York City:  
-- **American Airlines Flight 11** struck the North Tower (WTC Building 1). [K
- 
-- **United Airlines Flight 175** struck the South Tower (WTC Building 2).  [K
-
-
-These were part of the September 11 attacks. No other airplanes hit the WTC[3D[K
-WTC on that day—other planes involved in the attacks (e.g., American Airlin[6D[K
-Airlines Flight 77, which hit the Pentagon) did not target the World Trade [K
-Center complex. 
-
-This is a well-documented historical fact with no ambiguity. Let me know if[2D[K
-if you'd like additional context!
+That’s how LadyBug started: a React wrapper with a C++ middleware server hooked to Ollama. Host locally or even on a Raspberry Pi. And since I’m into FOSS, it’s built to be modular—plugg
 

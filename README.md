@@ -137,7 +137,12 @@ Changes to frontend source files must be rebuilt with `npm run build` before the
 
 PostgreSQL or another database may be added later for threads, history, projects, and other persistent data.
 
-## Roadmap
+## Development Roadmap
+
+LadyBug is currently in its early setup stage. You can view the
+temporary [development board](https://docs.google.com/spreadsheets/d/1DVUpXzJTxE8OKFFyNbWwE7Y2Eh3aTayy_FgmFKcwKVo/edit?usp=sharing) to see current progress.
+
+The board is read-only and will eventually be replaced by GitHub Projects.
 
 Planned areas of development include:
 
@@ -147,24 +152,14 @@ Planned areas of development include:
 - Projects and nested folders for organizing conversations 
 - Model selection and parameter controls
 - A database schema and persistence layer
-- A consistent `/api` namespace for server endpoints
 - Automated tests and GitHub Actions
 - Raspberry Pi and home-server deployment
-- A command-line interface
-- Modular features and optional third-party integrations
+- Modular pluggable features
 - Contributor roles and a path toward project membership
 - A hosted project website with a clearly defined privacy and data-retention policy
 - Document the codebase structure and API routes
 
 These ideas describe the direction of the project and should not be treated as currently available features.
-
-## Immediate TODOs
-
-- [ ] Modify the response and parse out the intermediary thinking output
-
-- [ ] Add project badges
-- [ ] Verify setup instructions on a clean macOS or Linux environment
-- [ ] Move server endpoints under an `/api` path
 
 ## Contributing
 
