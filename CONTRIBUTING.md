@@ -1,4 +1,4 @@
-# Contributing to LadyBug
+# Contributing to LadyBug 🐞
 
 Thank you for your interest in contributing to LadyBug. Contributions of all sizes are welcome, including bug fixes, documentation, feature ideas, tests, and improvements to the user experience.
 
@@ -7,7 +7,7 @@ Thank you for your interest in contributing to LadyBug. Contributions of all siz
 
 LadyBug currently has one maintainer, so reviews and responses may take some time.
 
-## Before You Begin
+## Before You Begin 📝
 
 The project is currently focused on:
 
@@ -22,11 +22,11 @@ Large features from the roadmap should be discussed before implementation. A con
 
 An FOSS mentor is also welcomed in helping prop this project up to an initial working release!
 
-## Development Setup
+## Development Setup 💻
 
 Follow the instructions in the [README](README.md) to install the dependencies, build the frontend, and run the C++ server.
 
-## Making and Testing a Change
+## Making and Testing a Change 🧪
 
 Create a branch with a short, descriptive name:
 
@@ -54,11 +54,11 @@ There is no formal automated test suite yet. Before submitting your work:
 
 In your pull request, explain what you tested and mention anything you could not test.
 
-## Opening an Issue
+## Opening an Issue 
 
 Check the existing issues first to see whether the bug or feature has already been reported.
 
-### Reporting a Bug
+### Reporting a Bug 🐛
 
 Include:
 
@@ -90,7 +90,7 @@ As of now, PR's are reviewed and approved by the project's sole maintainer. Your
 
 After submitting your pull request, email [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com) so I know it is ready for review.
 
-## AI-Assisted Contributions
+## AI-Assisted Contributions 🤖
 
 AI-assisted contributions are allowed, but you are responsible for anything you submit.
 
@@ -117,10 +117,10 @@ LadyBug does not have a separate `CODE_OF_CONDUCT.md` yet. In the meantime:
 
 Concerns may be reported privately to [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com).
 
-## Contributors and Project Membership
+## Contributors and Project Membership 
 
 A contributor list, project roles, and a path toward membership or maintainership will be added as the community grows.
 
-## Thank You
+## Thank You 🙏
 
 Thank you for helping build LadyBug. Bug reports, questions, documentation, and small fixes are just as valuable as large contributions. 
