@@ -1,8 +1,2 @@
-Here’s your synopsis polished to keep your voice and vibe intact—shorter, smoother, and punchier without losing any of your original energy or details:
-
----
-
-It took me a while to land on a project—and honestly? Kind of grateful I found this one. My mentor sent it over in 2024 after it was done. I checked it out, left it at that. Now that I’m deep into LLMs and agentic AI (which I’ve been using for my own workflows), I remembered this project. *Dawned on me*: why not use it to hit my course requirement *and* build something cool from the ground up?  
-
-That’s how LadyBug started: a React wrapper with a C++ middleware server hooked to Ollama. Host locally or even on a Raspberry Pi. And since I’m into FOSS, it’s built to be modular—plugg
+Hello again! 👋 How can I help you today?
 

@@ -1,11 +1,11 @@
-# LadyBug
+# LadyBug 🐞
 
 LadyBug is a self-hosted AI interface that connects a React frontend to a local Ollama model through a lightweight C++ server, with future support planned for Raspberry Pi hosting.
 
 > [!IMPORTANT]
 > LadyBug is an early-stage open-source project that is still being prepared for broader use and contribution. For now, email [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com) with questions about contributing, bug reports, pull requests, or feature requests.
 
-## About
+## About 🔖
 
 LadyBug explores a simple, decoupled approach to running a locally hosted AI assistant:
 
@@ -17,7 +17,7 @@ The long-term goal is to develop LadyBug into a modular, self-hosted AI platform
 
 The repository is currently named `LLAMA_BMCC`, but the project and interface are transitioning to the name **LadyBug**.
 
-## Project Status
+## Project Status 
 
 LadyBug is currently a working demo under active development. The present MVP is intentionally narrow: submit a prompt through the web interface, send it through the C++ server to a local Ollama model, and display the model's response.
 
@@ -46,13 +46,13 @@ A more detailed architecture and codebase map are coming soon.
 
 ## Getting Started
 
-LadyBug currently targets macOS and Linux. Windows instructions are planned but are not yet documented.
+LadyBug currently targets macOS and Linux.
 
 ### Prerequisites
 
 Install the following before continuing:
 - [Node.js and npm](https://nodejs.org/)
-- A C++ compiler with C++17 support
+- A C++ compiler with C++17 support (g++ / clang)
 - `make`
 - [Ollama](https://ollama.com/)
 
