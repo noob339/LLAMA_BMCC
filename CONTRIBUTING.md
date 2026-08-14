@@ -5,7 +5,7 @@ Thank you for your interest in contributing to LadyBug. Contributions of all siz
 > [!IMPORTANT]
 > LadyBug is an early-stage project and its contribution process is still being established. Before beginning substantial work, email [eurisotodev@gmail.com](mailto:eurisotodev@gmail.com) so we can discuss the idea and avoid duplicated or out-of-scope work.
 
-LadyBug currently has one maintainer, so reviewss and responses may take some time.
+LadyBug currently has one maintainer, so reviews and responses may take some time.
 
 ## Before You Begin
 
@@ -20,7 +20,7 @@ You can report bugs, suggest features, improve documentation or accessibility, f
 
 Large features from the roadmap should be discussed before implementation. A contribution may work correctly and still be declined if it does not fit the project's current direction.
 
-An FOSS mentor is also welcomed in helping prop this project up to an intial working release!
+An FOSS mentor is also welcomed in helping prop this project up to an initial working release!
 
 ## Development Setup
 
@@ -49,7 +49,7 @@ There is no formal automated test suite yet. Before submitting your work:
 - Make sure the React frontend builds
 - Make sure the C++ server compiles
 - Test your change manually
-- Uppdate the documentation when needed
+- Update the documentation when needed
 - Do not commit credentials, personal data, model files, or build output
 
 In your pull request, explain what you tested and mention anything you could not test.
