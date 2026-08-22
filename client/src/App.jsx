@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import ThreadBox from "./components/ThreadBox";
 import PromptBox from "./components/PromptBox";
 import styles from "./App.module.css";
+import LadyBugBrand from "./components/LadyBugBrand";
 import HistorySideBar from "./components/HistorySideBar";
 
 export default function App() {
@@ -81,51 +82,7 @@ export default function App() {
         <div className={styles.app}>
             <HistorySideBar />
             <main className={styles.main}>
-                <header className={styles.brand}>
-                    <svg
-                        viewBox='0 0 32 32'
-                        className={styles.spotIcon}
-                        aria-hidden='true'
-                    >
-                        <circle cx='16' cy='16' r='13' fill='var(--lb-text)' />
-                        <line
-                            x1='16'
-                            y1='4'
-                            x2='16'
-                            y2='28'
-                            stroke='var(--lb-surface)'
-                            strokeWidth='1.5'
-                        />
-                        <circle
-                            cx='11'
-                            cy='12'
-                            r='2.1'
-                            fill='var(--lb-surface)'
-                        />
-                        <circle
-                            cx='21'
-                            cy='12'
-                            r='2.1'
-                            fill='var(--lb-surface)'
-                        />
-                        <circle
-                            cx='11'
-                            cy='21'
-                            r='2.1'
-                            fill='var(--lb-surface)'
-                        />
-                        <circle
-                            cx='21'
-                            cy='21'
-                            r='2.1'
-                            fill='var(--lb-surface)'
-                        />
-                    </svg>
-                    <h1 className={styles.wordmark}>
-                        Lady<span className={styles.wordmarkAccent}>Bug</span>
-                    </h1>
-                </header>
-
+                <LadyBugBrand />
                 <ThreadBox messages={messages} querying={querying} />
 
                 <PromptBox
